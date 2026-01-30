@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WR-Meta - Wild Rift Top Lane Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1a1a2e;
+            --secondary: #16213e;
+            --accent: #0f3460;
+            --gold: #ffd700;
+            --danger: #e74c3c;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --text: #ecf0f1;
+            --text-secondary: #bdc3c7;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        header {
+            background: linear-gradient(90deg, var(--accent) 0%, var(--secondary) 100%);
+            padding: 2rem;
+            text-align: center;
+            border-bottom: 3px solid var(--gold);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            color: var(--gold);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .champion-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .champion-card {
+            background: var(--secondary);
+            border: 2px solid var(--accent);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .champion-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--gold);
+            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.2);
+        }
+
+        .champion-header {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
+            padding: 1.5rem;
+            text-align: center;
+            border-bottom: 2px solid var(--gold);
+        }
+
+        .champion-name {
+            font-size: 1.8rem;
+            color: var(--gold);
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .champion-role {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .champion-content {
+            padding: 1.5rem;
+        }
+
+        .champion-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            font-size: 3rem;
+        }
+
+        .section {
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title {
+            color: var(--gold);
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 0.8rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--accent);
+        }
+
+        .combo-box {
+            background: var(--primary);
+            border-left: 3px solid var(--gold);
+            padding: 0.8rem;
+            margin-bottom: 0.8rem;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .combo-name {
+            color: var(--gold);
+            font-weight: bold;
+            margin-bottom: 0.3rem;
+        }
+
+        .items-container {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 0.8rem;
+        }
+
+        .item-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            border: 1px solid var(--accent);
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .item-icon:hover {
+            border-color: var(--gold);
+            transform: scale(1.1);
+        }
+
+        .ability-box {
+            background: var(--primary);
+            padding: 0.8rem;
+            border-radius: 5px;
+            margin-bottom: 0.6rem;
+            border-left: 2px solid var(--success);
+        }
+
+        .ability-name {
+            color: var(--success);
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .matchup-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.6rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .matchup {
+            background: var(--primary);
+            padding: 0.6rem;
+            border-radius: 5px;
+            border-left: 3px solid var(--warning);
+            font-size: 0.85rem;
+        }
+
+        .matchup.favorable {
+            border-left-color: var(--success);
+        }
+
+        .matchup.unfavorable {
+            border-left-color: var(--danger);
+        }
+
+        .video-link {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--danger) 0%, #c0392b 100%);
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+            margin-bottom: 0.5rem;
+            width: 100%;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            font-weight: 500;
+            box-shadow: 0 2px 8px rgba(231, 76, 60, 0.3);
+        }
+
+        .video-link:hover {
+            background: linear-gradient(135deg, #c0392b 0%, #a93226 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(231, 76, 60, 0.5);
+        }
+
+        .combo-video-box {
+            background: var(--primary);
+            padding: 1rem;
+            border-radius: 5px;
+            margin-bottom: 0.8rem;
+            border-left: 3px solid var(--gold);
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .combo-video-title {
+            color: var(--gold);
+            font-weight: bold;
+            font-size: 0.95rem;
+        }
+
+        .synergy-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .synergy-list li {
+            padding: 0.5rem;
+            background: var(--primary);
+            border-radius: 5px;
+            margin-bottom: 0.4rem;
+            border-left: 2px solid var(--gold);
+            font-size: 0.9rem;
+        }
+
+        .secret-box {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, rgba(15, 52, 96, 0.5) 100%);
+            border: 1px solid var(--gold);
+            padding: 0.8rem;
+            border-radius: 5px;
+            margin-bottom: 0.6rem;
+            font-size: 0.85rem;
+            color: var(--gold);
+        }
+
+        @media (max-width: 768px) {
+            .champion-grid {
+                grid-template-columns: 1fr;
+            }
+
+            header h1 {
+                font-size: 1.8rem;
+            }
+
+            .matchup-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--secondary);
+            border: 2px solid var(--gold);
+            border-radius: 10px;
+            padding: 2rem;
+            max-width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--danger);
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.2s;
+        }
+
+        .close-btn:hover {
+            background: #c0392b;
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>⚔️ WR-META TOP LANE</h1>
+        <p>Guia Completo de Campeões Top - Combos, Itens, Sinergias e Matchups</p>
+    </header>
+
+    <div class="container">
+        <div class="champion-grid" id="championGrid"></div>
+    </div>
+
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal()">&times;</button>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+
+    <script>
+        const champions = {
+            camille: {
+                name: "Camille",
+                emoji: "⚔️",
+                role: "Top Lane / Duelist",
+                image: "🤖",
+                combos: [
+                    {
+                        name: "Combo de Dano Full (Q+E+R)",
+                        description: "Q (charged) → E (dash-stun) → AA → R (ult) → Q repeat",
+                        damage: "Extremamente Alto"
+                    },
+                    {
+                        name: "Harass Seguro (Q+AA)",
+                        description: "Q charge + AA básico → Recua. Sem comprometer posição"
+                    },
+                    {
+                        name: "Engage com Ult (R+E+Q+AA)",
+                        description: "R no inimigo → E stun → Q charged → AA chain"
+                    },
+                    {
+                        name: "Kite com Hextech (E repeat)",
+                        description: "Use E para escapar enquanto recua, Q charged para poke"
+                    },
+                    {
+                        name: "Teamfight Engage (R+E+AA)",
+                        description: "R numa carryjam fight → E stun suporte → Q spam no carry"
+                    }
+                ],
+                items: ["⚔️", "🛡️", "💪", "⚡", "🔮", "❄️"],
+                itemNames: ["Trinity Force", "Black Cleaver", "Adaptive Helm", "Iceborn Gauntlet", "Spirit Visage", "Thornmail"],
+                abilities: [
+                    { name: "Q - Precision Protocol", desc: "Auto-ataque melhorado com dano progressivo" },
+                    { name: "W - Tactical Sweep", desc: "Escudo e redução de velocidade em área" },
+                    { name: "E - Hookshot", desc: "Dash com stun no alvo" },
+                    { name: "R - The Hextech Ultimatum", desc: "Ult single-target com dano alto" }
+                ],
+                matchups: [
+                    { champion: "Riven", type: "unfavorable", note: "Riven é mais rápida no early" },
+                    { champion: "Fiora", type: "unfavorable", note: "Fiora pode parry seu engage" },
+                    { champion: "Kayle", type: "favorable", note: "Domina antes de Kayle escalar" },
+                    { champion: "Renekton", type: "balanced", note: "Depende do level 6" }
+                ],
+                synergies: [
+                    "Campeões com CC (Malphite, Nautilus)",
+                    "Carries que precisam de peeling",
+                    "Comps de teamfight"
+                ],
+                secrets: [
+                    "Charge Q antes de usar E para dano máximo",
+                    "W pode bloquear abilidades de longa distância",
+                    "Use hextech terrain para controlar mapa",
+                    "Ult tem cooldown baixo, use agressivamente"
+                ],
+                videos: [
+                    { title: "Camille Combos", url: "https://www.youtube.com/watch?v=JwuUBwKH6Ks" },
+                    { title: "Camille Guide", url: "https://www.youtube.com/watch?v=U9i7nwxXKDw" }
+                ]
+            },
+
+            riven: {
+                name: "Riven",
+                emoji: "🗡️",
+                role: "Top Lane / Duelist",
+                image: "⚡",
+                combos: [
+                    {
+                        name: "Combo Clássico (Q+Q+Q+AA)",
+                        description: "Três Q's em sequência com AA entre elas para dano máximo"
+                    },
+                    {
+                        name: "Engage+Stun (E+W)",
+                        description: "E pra perto, W pra stun inimigo"
+                    },
+                    {
+                        name: "Full Burst (Q+Q+Q+E+W+AA+R)",
+                        description: "Combo de dano máximo com ult de finalização"
+                    },
+                    {
+                        name: "Kite and Escape (E+AA+Q)",
+                        description: "E para recuar, Q para poke enquanto se afasta"
+                    },
+                    {
+                        name: "Slow Reset (E+R+W+Q)",
+                        description: "Use R para reset de animação, W stun, Q repeat"
+                    }
+                ],
+                items: ["⚔️", "🔨", "💪", "🛡️", "⚡", "🩸"],
+                itemNames: ["Black Cleaver", "Mortal Reminder", "Drakhtarr", "Adaptive Helm", "Serrated Dirk", "Vampiric Scepter"],
+                abilities: [
+                    { name: "Q - Broken Wings", desc: "Três Q's diferentes para mobilidade e dano" },
+                    { name: "W - Ki Burst", desc: "Stun em área ao redor" },
+                    { name: "E - Courage", desc: "Shield e movespeed" },
+                    { name: "R - Blade of the Exile", desc: "Ult com dano extra e Q reset" }
+                ],
+                matchups: [
+                    { champion: "Kayle", type: "unfavorable", note: "Kayle poke de longe" },
+                    { champion: "Gwen", type: "balanced", note: "Depende do nível 6" },
+                    { champion: "Camille", type: "favorable", note: "Mais rápida no engage" },
+                    { champion: "Renekton", type: "balanced", note: "All-in depende do timer" }
+                ],
+                synergies: [
+                    "Junglers com bom gank",
+                    "Comps de teamfight ofensivas",
+                    "Campeões que exploram vantagem numérica"
+                ],
+                secrets: [
+                    "Q tem 3 formas diferentes - aproveite a mobilidade",
+                    "W pode ser usado antes de Q para garantir dano",
+                    "Ult reseta Q - use para escape ou dano máximo",
+                    "Timing é tudo - early game é seu pico"
+                ],
+                videos: [
+                    { title: "Riven Combos", url: "https://www.youtube.com/watch?v=SNsRe0mhrk8" }
+                ]
+            },
+
+            fiora: {
+                name: "Fiora",
+                emoji: "🗡️",
+                role: "Top Lane / Duelist",
+                image: "👑",
+                combos: [
+                    {
+                        name: "Vital Proc (Auto+Parry)",
+                        description: "Auto no vital, parry stun inimigo se tentar responder"
+                    },
+                    {
+                        name: "Full Vital (Q+AA vitals)",
+                        description: "Q pra sair, busca vitals e AA para proc",
+                        damage: "Dano progressivo"
+                    },
+                    {
+                        name: "Parry Defensive (W em CC)",
+                        description: "Parry stun/CC inimigo, vira um parry stun de volta"
+                    },
+                    {
+                        name: "Ult Teamfight (R)",
+                        description: "Ult em teamfight para heal, hit all vitals para reset"
+                    },
+                    {
+                        name: "Engage (Q+AA+W dodge)",
+                        description: "Q pra perto, AA vital, W dodge dano de volta"
+                    }
+                ],
+                items: ["⚔️", "🩸", "💪", "🛡️", "⚡", "🔮"],
+                itemNames: ["Trinity Force", "Hydra", "Manamune", "Spirit Visage", "Iceborn Gauntlet", "Void Staff"],
+                abilities: [
+                    { name: "Q - Lunge", desc: "Dash pra perto com reset se acertar vital" },
+                    { name: "W - Riposte", desc: "Parry que pode ser ofensiva ou defensiva" },
+                    { name: "E - Bladework", desc: "Bonificação de AS e dano" },
+                    { name: "R - Grand Challenge", desc: "Ult com dano progressivo por vital hit" }
+                ],
+                matchups: [
+                    { champion: "Riven", type: "balanced", note: "Depende da parry" },
+                    { champion: "Camille", type: "favorable", note: "Parry bloqueia engage" },
+                    { champion: "Ambessa", type: "unfavorable", note: "Ambessa tank muito" },
+                    { champion: "Kayle", type: "balanced", note: "Early game é de Fiora" }
+                ],
+                synergies: [
+                    "Campeões de dano puro",
+                    "Comps duelist-focused",
+                    "Junglers que dão setup"
+                ],
+                secrets: [
+                    "Parry tem cd baixo - não tenha medo de usar",
+                    "Vital sempre aparece em padrão - aprenda o padrão",
+                    "Q reseta se bater vital - jogo de movimento",
+                    "W parry CC inimigo - essencial contra crowd control"
+                ],
+                videos: [
+                    { title: "Fiora Guide", url: "https://www.youtube.com/watch?v=LXurHAPoHNc" }
+                ]
+            },
+
+            kayle: {
+                name: "Kayle",
+                emoji: "👼",
+                role: "Top Lane / Ranged Carry",
+                image: "✨",
+                combos: [
+                    {
+                        name: "Poke Range (AA+W)",
+                        description: "AA de longe + W pra harass seguro"
+                    },
+                    {
+                        name: "Full Rotation (E+AA+W+AA)",
+                        description: "E dash, AA, W slow, AA de novo pra sair"
+                    },
+                    {
+                        name: "Ult Teamfight (R)",
+                        description: "Ult em aliado que tá levando dano pro imunidade"
+                    },
+                    {
+                        name: "Kite Infinito (AA+E+AA)",
+                        description: "AA pra harass, E pra recuar, AA repeat"
+                    },
+                    {
+                        name: "Late Game (AA+R+AA)",
+                        description: "Late game você vira range carry, R em teamfight"
+                    }
+                ],
+                items: ["✨", "🔮", "💪", "⚡", "🛡️", "❄️"],
+                itemNames: ["Lich Bane", "Void Staff", "Liandry's Torment", "Morellonomicon", "Zhonyas Hourglass", "Rylais Crystal"],
+                abilities: [
+                    { name: "Q - Radiant Blast", desc: "Míssil de dano ao alcance com slow" },
+                    { name: "W - Celestial Blessing", desc: "Heal e movespeed em area" },
+                    { name: "E - Starfire Spellburst", desc: "Dash com dano progressivo" },
+                    { name: "R - Divine Ascent", desc: "Ult de escala - invulnerável e range infinita no late" }
+                ],
+                matchups: [
+                    { champion: "Riven", type: "favorable", note: "Kayle poke de longe" },
+                    { champion: "Renekton", type: "favorable", note: "Renekton não alcança level 6" },
+                    { champion: "Ambessa", type: "unfavorable", note: "Ambessa all-in muito forte" },
+                    { champion: "Gwen", type: "balanced", note: "Depende do farming" }
+                ],
+                synergies: [
+                    "Comps de poke",
+                    "Junglers que dão counter-gank",
+                    "Suporte com CC pra setup"
+                ],
+                secrets: [
+                    "Nível 6 é seu power spike principal",
+                    "Early game é vulnerável - jogue seguro",
+                    "W heal aliados próximos também",
+                    "Late game você vira range carry - escale bem"
+                ],
+                videos: [
+                    { title: "Kayle Strategy", url: "https://www.youtube.com/watch?v=U9i7nwxXKDw" }
+                ]
+            },
+
+            ambessa: {
+                name: "Ambessa",
+                emoji: "💪",
+                role: "Top Lane / Bruiser",
+                image: "🔥",
+                combos: [
+                    {
+                        name: "Q+Auto Chain (Q+AA)",
+                        description: "Q em sequence + AA entre elas para stun"
+                    },
+                    {
+                        name: "Full Rotation (E+Q+AA+W)",
+                        description: "E gap close, Q stun, AA, W para slow"
+                    },
+                    {
+                        name: "W Healing Trades (W+AA)",
+                        description: "W pra heal enquanto tira dano"
+                    },
+                    {
+                        name: "Ult All-In (R+E+Q+AA)",
+                        description: "Ult pra invulnerável, E gap, Q stun, AA loop"
+                    },
+                    {
+                        name: "Dual Threat (E+Q+E repeat)",
+                        description: "E gap, Q stun, E repeat pra mobili"
+                    }
+                ],
+                items: ["💪", "🛡️", "⚡", "🩸", "❄️", "🔨"],
+                itemNames: ["Black Cleaver", "Spirit Visage", "Adaptive Helm", "Sterakk Gage", "Frozen Heart", "Kaenic Rookwarn"],
+                abilities: [
+                    { name: "Q - Adrenaline Rush", desc: "Três hits que acumulam stun no terceiro" },
+                    { name: "W - Intuition", desc: "Movespeed e heal cuando golpea enemigos" },
+                    { name: "E - Dangerous Game", desc: "Gap-close com dano extra" },
+                    { name: "R - Labyrinth", desc: "Ult invulnerável com dano AoE" }
+                ],
+                matchups: [
+                    { champion: "Fiora", type: "favorable", note: "Ambessa muito tanky" },
+                    { champion: "Kayle", type: "favorable", note: "All-in Ambessa é forte" },
+                    { champion: "Renekton", type: "balanced", note: "Depende do level 6" },
+                    { champion: "Gwen", type: "favorable", note: "Ambessa mata fácil" }
+                ],
+                synergies: [
+                    "Campeões de CC pra setup",
+                    "Comps de bruiser/tanky",
+                    "Junglers com bom engage"
+                ],
+                secrets: [
+                    "Q terceiro hit stuna - combo com auto",
+                    "W heal enquanto tá combatendo",
+                    "Ult invulnerável resolve problemas",
+                    "Early game é super forte - aproveite"
+                ],
+                videos: [
+                    { title: "Ambessa Guide", url: "https://www.youtube.com/watch?v=dNMhwZdKJ_A" }
+                ]
+            },
+
+            gwen: {
+                name: "Gwen",
+                emoji: "🧵",
+                role: "Top Lane / Duelist",
+                image: "🎀",
+                combos: [
+                    {
+                        name: "Q Auto Chain (Q+AA)",
+                        description: "Q pros três lados + AA no alvo"
+                    },
+                    {
+                        name: "W Defensive + Q (W+Q+AA)",
+                        description: "W pra block, Q pra contra-atacar"
+                    },
+                    {
+                        name: "Full Rotation (E+AA+Q+AA)",
+                        description: "E dash, AA, Q, AA repeat com dano"
+                    },
+                    {
+                        name: "Ult Massive Damage (R+E+AA+Q)",
+                        description: "Ult huge ult, E dash, AA pra proc, Q spam"
+                    },
+                    {
+                        name: "Kite Control (E+Q+AA)",
+                        description: "E pra recuar, Q pra poke, AA pra reset"
+                    }
+                ],
+                items: ["🎀", "🔨", "💪", "🛡️", "⚡", "🌪️"],
+                itemNames: ["Trinity Force", "Nashor's Tooth", "Manamune", "Adaptive Helm", "Iceborn Gauntlet", "Liandry's Torment"],
+                abilities: [
+                    { name: "Q - Snip Snip", desc: "Tesoura em três direções com alcance médio" },
+                    { name: "W - Hallowed Mist", desc: "Cria zonas que block shots inimigos" },
+                    { name: "E - Skip 'n Slash", desc: "Dash com resetar se acertar" },
+                    { name: "R - Needlework", desc: "Ult com dano massive e area" }
+                ],
+                matchups: [
+                    { champion: "Kayle", type: "unfavorable", note: "Kayle poke de longe" },
+                    { champion: "Ambessa", type: "unfavorable", note: "Ambessa mata muito" },
+                    { champion: "Riven", type: "balanced", note: "Depende do level 6" },
+                    { champion: "Fiora", type: "balanced", note: "Skill matchup" }
+                ],
+                synergies: [
+                    "Campeões duelist",
+                    "Comps de skirmish",
+                    "Junglers com bom timing"
+                ],
+                secrets: [
+                    "Q sai em três direções - aproveite a cobertura",
+                    "W bloqueia towers projectiles também",
+                    "E reseta em unit hit - spam pra mobilidade",
+                    "Ult é huge AoE - use em clusters"
+                ],
+                videos: [
+                    { title: "Gwen Guide", url: "https://www.youtube.com/watch?v=SNsRe0mhrk8" }
+                ]
+            },
+
+            renekton: {
+                name: "Renekton",
+                emoji: "🐊",
+                role: "Top Lane / Bruiser",
+                image: "😤",
+                combos: [
+                    {
+                        name: "Quick Trade (Q+AA)",
+                        description: "Q pra heal + dano, AA pra sair rápido"
+                    },
+                    {
+                        name: "All-In Engage (E+Q+W+AA)",
+                        description: "E gap close, Q heal, W stun, AA spam"
+                    },
+                    {
+                        name: "Rage Q Combo (Rage Q+E+W)",
+                        description: "Charged Q com rage pra heal massivo"
+                    },
+                    {
+                        name: "Ult Teamfight (R+E+Q+W)",
+                        description: "Ult pra tankiness, E gap, Q heal, W stun"
+                    },
+                    {
+                        name: "Early Bully (Q+AA+W)",
+                        description: "Quick trade no level 3 pra dominar"
+                    }
+                ],
+                items: ["🐊", "🛡️", "⚡", "❄️", "🩸", "🔨"],
+                itemNames: ["Black Cleaver", "Adaptive Helm", "Frozen Heart", "Spirit Visage", "Thornmail", "Kaenic Rookwarn"],
+                abilities: [
+                    { name: "Q - Cull the Meek", desc: "AoE com heal próprio" },
+                    { name: "W - Ruthless Predator", desc: "Stun em até 2 alvos" },
+                    { name: "E - Slice and Dice", desc: "Gap-close de ida e volta" },
+                    { name: "R - Dominus", desc: "Ult com tankiness e dano AoE" }
+                ],
+                matchups: [
+                    { champion: "Kayle", type: "favorable", note: "Renekton dura até level 6" },
+                    { champion: "Ambessa", type: "balanced", note: "Depende do level 6" },
+                    { champion: "Gwen", type: "favorable", note: "Renekton mata fácil" },
+                    { champion: "Fiora", type: "balanced", note: "Skill depende da parry" }
+                ],
+                synergies: [
+                    "Comps de tanky bruiser",
+                    "Junglers com follow-up",
+                    "Campeões que precisam peeling"
+                ],
+                secrets: [
+                    "Q heala - não tenha medo de poke",
+                    "W stuna - essencial no all-in",
+                    "Rage empowered Q heala MUITO",
+                    "Ult cooldown é curto - use frequente"
+                ],
+                videos: [
+                    { title: "Renekton vs Rumble", url: "https://www.youtube.com/watch?v=hK-9yOQJh9Y" }
+                ]
+            },
+
+            rumble: {
+                name: "Rumble",
+                emoji: "🔥",
+                role: "Top Lane / Mage",
+                image: "⚙️",
+                combos: [
+                    {
+                        name: "Q Poke (Q+MS)",
+                        description: "Q no flamethrower direction + movespeed pra recuar"
+                    },
+                    {
+                        name: "E+Q Engage (E+Q+AA)",
+                        description: "E slow, Q pra dano, AA pra finish"
+                    },
+                    {
+                        name: "Ult Teamfight (R)",
+                        description: "Ult em cluster pra massive dano e slow"
+                    },
+                    {
+                        name: "Overheat Control (Q+E+Q)",
+                        description: "Gerenciar heat pra manter dano contínuo"
+                    },
+                    {
+                        name: "W Movement + Q (W+Q+AA)",
+                        description: "W pra kite/escape, Q pra dano a distância"
+                    }
+                ],
+                items: ["⚙️", "🔥", "🔮", "⚡", "💪", "❄️"],
+                itemNames: ["Liandry's Torment", "Rylai's Crystal", "Morellonomicon", "Void Staff", "Zhonyas Hourglass", "Frozen Heart"],
+                abilities: [
+                    { name: "Q - Flamespitter", desc: "Flamethrower com dano e slow" },
+                    { name: "W - Scrap Shield", desc: "Shield com movespeed" },
+                    { name: "E - Electro Harpoon", desc: "Projectile com slow" },
+                    { name: "R - Equalizer", desc: "Ult linha com dano massive AoE" }
+                ],
+                matchups: [
+                    { champion: "Riven", type: "favorable", note: "Rumble poke de longe" },
+                    { champion: "Renekton", type: "unfavorable", note: "Renekton mata fácil" },
+                    { champion: "Kayle", type: "balanced", note: "Depende do positioning" },
+                    { champion: "Ambessa", type: "unfavorable", note: "Ambessa muito strong" }
+                ],
+                synergies: [
+                    "Comps de AoE/poke",
+                    "Campeões com CC pra setup",
+                    "Junglers que exploram ult"
+                ],
+                secrets: [
+                    "Heat management é KEY - não overheat desnecessário",
+                    "Ult em teamfight é MASSIVE",
+                    "Q pode ser usado como poke contínuo",
+                    "W shield reseta - use frequente"
+                ],
+                videos: [
+                    { title: "Rumble Gameplay", url: "https://www.youtube.com/watch?v=hK-9yOQJh9Y" }
+                ]
+            }
+        };
+
+        function createChampionCard(key, champion) {
+            const champImage = getChampionImage(key);
+            return `
+                <div class="champion-card" onclick="openModal('${key}')">
+                    <div class="champion-header">
+                        <div class="champion-name">${champion.emoji} ${champion.name}</div>
+                        <div class="champion-role">${champion.role}</div>
+                    </div>
+                    <div class="champion-content">
+                        <div class="champion-image" style="background-image: url('${champImage}'); background-size: cover; background-position: center top; background-repeat: no-repeat;">${champion.image}</div>
+                        <div class="section">
+                            <div class="section-title">📊 Status Rápido</div>
+                            <div style="font-size: 0.9rem; line-height: 2;">
+                                <div>💪 Poder Early: ${champion.name === 'Renekton' ? '⭐⭐⭐⭐⭐' : champion.name === 'Ambessa' ? '⭐⭐⭐⭐⭐' : champion.name === 'Kayle' ? '⭐⭐' : '⭐⭐⭐⭐'}</div>
+                                <div>⚔️ Combos: ${champion.combos.length}</div>
+                                <div>🎯 Dificuldade: ${champion.name === 'Fiora' ? 'Alta' : champion.name === 'Riven' ? 'Alta' : 'Média'}</div>
+                            </div>
+                        </div>
+                        <button onclick="event.stopPropagation()" class="video-link">Ver Detalhes</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function getChampionImage(championKey) {
+            const championImages = {
+                camille: "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Camille_0.jpg",
+                riven: "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Riven_0.jpg",
+                fiora: "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Fiora_0.jpg",
+                kayle: "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Kayle_0.jpg",
+                ambessa: "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ambessa_0.jpg",
+                gwen: "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Gwen_0.jpg",
+                renekton: "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Renekton_0.jpg",
+                rumble: "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Rumble_0.jpg"
+            };
+            return championImages[championKey] || "";
+        }
+
+        function getItemImage(itemName) {
+            const itemImages = {
+                "Trinity Force": "https://ddragon.leagueoflegends.com/cdn/13.1.1/img/item/3078.png",
+                "Black Cleaver": "https://ddragon.leagueoflegends.com/cdn/13.1.1/img/item/3071.png",
+                "Adaptive Helm": "https://ddragon.leagueoflegends.com/cdn/13.1.1/img/item/3001.png",
+                "Iceborn Gauntlet": "https://ddragon.leagueoflegends.com/cdn/13.1.1/img/item/3025.png",
+                "Spirit Visage": "https://ddragon.leagueoflegends.com/cdn/13.1.1/img/item/3065.png",
+                "Thornmail": "https://ddragon.leagueoflegends.com/cdn/13.1.1/img/item/3075.png",
+                "Mortal Reminder": "https://ddragon.leagueoflegends.com/cdn/13.1.1/img/item/3033.png",
+                "Drakhtarr": "https://ddragon.leagueoflegends.com/cdn/13.1.1/img/item/3814.png",
+                "Serrated Dirk": "https://ddragon.leagueoflegends.com/cdn/13.1.1/img/item/3131.png",
+                "Vampiric Scepter": "https://ddragon.leagueoflegends.com/cdn/13.1.1/img/item/3194.png",
+                "Hydra": "https://ddragon.leagueoflegends.com/cdn/13.1.1/img/item/3074.png",
+                "Manamune": "https://ddragon.leagueoflegends.com/cdn/13.1.1/img/item/3003.png",
+                "Void Staff": "https://ddragon.leagueoflegends.com/cdn/13.1.1/img/item/3135.png",
+                "Lich Bane": "https://ddragon.leagueoflegends.com/cdn/13.1.1/img/item/3100.png",
+                "Liandry's Torment": "https://ddragon.leagueoflegends.com/cdn/13.1.1/img/item/3007.png",
+                "Morellonomicon": "https://ddragon.leagueoflegends.com/cdn/13.1.1/img/item/3165.png",
+                "Zhonyas Hourglass": "https://ddragon.leagueoflegends.com/cdn/13.1.1/img/item/3047.png",
+                "Rylais Crystal": "https://ddragon.leagueoflegends.com/cdn/13.1.1/img/item/3116.png",
+                "Sterakk Gage": "https://ddragon.leagueoflegends.com/cdn/13.1.1/img/item/3053.png",
+                "Frozen Heart": "https://ddragon.leagueoflegends.com/cdn/13.1.1/img/item/3110.png",
+                "Kaenic Rookwarn": "https://ddragon.leagueoflegends.com/cdn/13.1.1/img/item/3158.png",
+                "Nashor's Tooth": "https://ddragon.leagueoflegends.com/cdn/13.1.1/img/item/3115.png"
+            };
+            return itemImages[itemName] || "https://ddragon.leagueoflegends.com/cdn/13.1.1/img/item/1001.png";
+        }
+
+        function getComboEmoji(championKey, comboIndex) {
+            const comboEmojis = {
+                camille: ["⚡", "🎯", "🛡️"],
+                riven: ["🗡️", "⚔️", "🔥"],
+                fiora: ["👑", "🤺", "✨"],
+                kayle: ["👼", "💫", "🌟"],
+                ambessa: ["💪", "🔥", "⚡"],
+                gwen: ["🧵", "🎀", "✨"],
+                renekton: ["🐊", "😤", "🌊"],
+                rumble: ["⚙️", "🔥", "💥"]
+            };
+            return comboEmojis[championKey]?.[comboIndex] || "⚔️";
+        }
+
+        function extractYoutubeId(url) {
+            const match = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&\n?#]+)/);
+            return match ? match[1] : '';
+        }
+
+        function getComboVideos(championKey) {
+            const comboVideos = {
+                camille: [
+                    {combo: "Q+E+R Full Burst", video: "https://www.youtube.com/watch?v=kv-7hfAKxAU", title: "Camille Combo Kills"},
+                    {combo: "Hookshot Engage", video: "https://www.youtube.com/watch?v=Qe7U4s3xkuI", title: "Camille Jungle Combo"},
+                    {combo: "Tactical Sweep Poke", video: "https://www.youtube.com/watch?v=JwuUBwKH6Ks", title: "Camille Build & Combos"}
+                ],
+                riven: [
+                    {combo: "Q+Q+Q+AA Chain", video: "https://www.youtube.com/watch?v=nJixy-4IbOA", title: "Riven vs Kayle Outplay"},
+                    {combo: "E+W Stun Engage", video: "https://www.youtube.com/watch?v=5IJjV9rO5pg", title: "Riven Hypercarry"},
+                    {combo: "R Reset Full Burst", video: "https://www.youtube.com/watch?v=SNsRe0mhrk8", title: "Riven Complete Guide"}
+                ],
+                fiora: [
+                    {combo: "Vital Proc Auto", video: "https://www.youtube.com/watch?v=LXurHAPoHNc", title: "Fiora Top Lane Guide"},
+                    {combo: "Parry Defensive", video: "https://www.youtube.com/watch?v=SNsRe0mhrk8", title: "Fiora Advanced"}
+                ],
+                kayle: [
+                    {combo: "E+AA Poke", video: "https://www.youtube.com/watch?v=U9i7nwxXKDw", title: "Kayle 95% Winrate"},
+                    {combo: "R Teamfight", video: "https://www.youtube.com/watch?v=CmEvnAGzq04", title: "Kayle vs Riven"}
+                ],
+                ambessa: [
+                    {combo: "Q+Auto Stun", video: "https://www.youtube.com/watch?v=RP_4p0H086Q", title: "Ambessa Fast Combos"},
+                    {combo: "E+Q+AA Loop", video: "https://www.youtube.com/watch?v=M92FgEpt12U", title: "Ambessa Tips & Tricks"},
+                    {combo: "R All-In", video: "https://www.youtube.com/watch?v=dNMhwZdKJ_A", title: "Ambessa vs Renekton"}
+                ],
+                gwen: [
+                    {combo: "Q+AA Chain", video: "https://www.youtube.com/watch?v=SNsRe0mhrk8", title: "Gwen Duelist Guide"},
+                    {combo: "W Block+Q Counter", video: "https://www.youtube.com/watch?v=7P4J7Z8K2qU", title: "Gwen Advanced Tactics"},
+                    {combo: "R Ultimate Combo", video: "https://www.youtube.com/watch?v=kK9L5mZ4pWI", title: "Gwen Full Rotation"}
+                ],
+                renekton: [
+                    {combo: "E+AA+E Trade", video: "https://www.youtube.com/watch?v=hK-9yOQJh9Y", title: "Renekton vs Rumble"},
+                    {combo: "E+W+Q All-In", video: "https://wildriftcounter.com/combo/renekton-combo-wild-rift/", title: "Renekton Combos"}
+                ],
+                rumble: [
+                    {combo: "Q Poke", video: "https://www.youtube.com/watch?v=hK-9yOQJh9Y", title: "Rumble Massive Damage"},
+                    {combo: "R Teamfight", video: "https://www.youtube.com/watch?v=SNsRe0mhrk8", title: "Rumble Ultimate Guide"},
+                    {combo: "Heat Management", video: "https://www.youtube.com/watch?v=fF3mK9L2pQs", title: "Rumble Heat Control Guide"}
+                ]
+            };
+            return comboVideos[championKey] || [];
+        }
+
+        function openModal(championKey) {
+            const champion = champions[championKey];
+            let html = `<h2 style="color: var(--gold); margin-bottom: 1.5rem;">${champion.emoji} ${champion.name} - Guia Completo</h2>`;
+
+            // Combos com Imagens
+            html += `<div class="section"><div class="section-title">⚔️ COMBOS (${champion.combos.length})</div>`;
+            champion.combos.forEach((combo, i) => {
+                const comboEmoji = getComboEmoji(championKey, i);
+                html += `<div class="combo-box">
+                    <div style="display: flex; align-items: center; gap: 0.8rem; margin-bottom: 0.5rem;">
+                        <div style="font-size: 2rem;">${comboEmoji}</div>
+                        <div class="combo-name">${i + 1}. ${combo.name}</div>
+                    </div>
+                    <div>${combo.description}</div>
+                    ${combo.damage ? `<div style="color: var(--danger); margin-top: 0.3rem;">💥 ${combo.damage}</div>` : ''}
+                </div>`;
+            });
+            html += `</div>`;
+
+            // Itens com Imagens
+            html += `<div class="section"><div class="section-title">🛍️ BUILD RECOMENDADA</div>`;
+            html += `<div class="items-container">`;
+            champion.itemNames.forEach((item, i) => {
+                const itemImage = getItemImage(item);
+                html += `<div class="item-icon" title="${item}" style="background-image: url('${itemImage}'); background-size: cover; background-position: center; border: 2px solid var(--gold);" onmouseover="this.style.borderColor='var(--danger)'" onmouseout="this.style.borderColor='var(--gold)'"></div>`;
+            });
+            html += `</div></div>`;
+
+            // Habilidades
+            html += `<div class="section"><div class="section-title">🎯 HABILIDADES</div>`;
+            champion.abilities.forEach(ability => {
+                html += `<div class="ability-box">
+                    <div class="ability-name">${ability.name}</div>
+                    <div style="font-size: 0.85rem;">${ability.desc}</div>
+                </div>`;
+            });
+            html += `</div>`;
+
+            // Matchups
+            html += `<div class="section"><div class="section-title">⚡ MATCHUPS</div>`;
+            html += `<div class="matchup-grid">`;
+            champion.matchups.forEach(matchup => {
+                html += `<div class="matchup ${matchup.type}">
+                    <strong>vs ${matchup.champion}</strong>
+                    <div style="font-size: 0.8rem; margin-top: 0.3rem;">${matchup.note}</div>
+                </div>`;
+            });
+            html += `</div></div>`;
+
+            // Sinergias
+            html += `<div class="section"><div class="section-title">🤝 SINERGIAS</div>`;
+            html += `<ul class="synergy-list">`;
+            champion.synergies.forEach(synergy => {
+                html += `<li>${synergy}</li>`;
+            });
+            html += `</ul></div>`;
+
+            // Secrets
+            html += `<div class="section"><div class="section-title">🔐 SECRETS & TIPS</div>`;
+            champion.secrets.forEach(secret => {
+                html += `<div class="secret-box">✨ ${secret}</div>`;
+            });
+            html += `</div>`;
+
+            // Vídeos dos Combos - Cards lado a lado com iframe
+            if (championKey) {
+                const comboVideos = getComboVideos(championKey);
+                if (comboVideos.length > 0) {
+                    html += `<div class="section"><div class="section-title">🎬 VÍDEOS DOS COMBOS</div>`;
+                    html += `<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem; margin-bottom: 1rem;">`;
+                    comboVideos.forEach((video, idx) => {
+                        const videoId = extractYoutubeId(video.video);
+                        html += `
+                            <div style="background: var(--primary); border: 2px solid var(--gold); border-radius: 8px; overflow: hidden; transition: all 0.3s ease;">
+                                <iframe width="100%" height="200" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border: none;"></iframe>
+                                <div style="padding: 1rem;">
+                                    <div style="color: var(--gold); font-weight: bold; margin-bottom: 0.5rem; font-size: 0.95rem;">🎬 ${video.combo}</div>
+                                    <div style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.8rem;">${video.title}</div>
+                                    <a href="${video.video}" target="_blank" class="video-link" style="margin: 0; padding: 0.6rem 0.8rem; font-size: 0.8rem;">▶️ Abrir no YouTube</a>
+                                </div>
+                            </div>
+                        `;
+                    });
+                    html += `</div></div>`;
+                }
+            }
+
+            // Videos Gerais
+            if (champion.videos.length > 0) {
+                html += `<div class="section"><div class="section-title">📹 VÍDEOS DE REFERÊNCIA</div>`;
+                champion.videos.forEach(video => {
+                    html += `<a href="${video.url}" target="_blank" class="video-link">▶️ ${video.title}</a>`;
+                });
+                html += `</div>`;
+            }
+
+            document.getElementById('modalBody').innerHTML = html;
+            document.getElementById('modal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('modal').classList.remove('active');
+        }
+
+        // Render champions
+        const grid = document.getElementById('championGrid');
+        for (let [key, champion] of Object.entries(champions)) {
+            grid.innerHTML += createChampionCard(key, champion);
+        }
+
+        // Close modal on background click
+        document.getElementById('modal').addEventListener('click', function(e) {
+            if (e.target === this) closeModal();
+        });
+    </script>
+</body>
+</html>
